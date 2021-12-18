@@ -52,4 +52,33 @@ public class Utils {
         }
     }
 
+    private static void updateDataToFile() {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(new File(MODIFIED_SW_FILE)));
+            for (String item : wordList.keySet()) {
+                bw.write(item + "`");
+                List<String> defList = wordList.get(item);
+                for (int i = 0; i < defList.size(); i++) {
+                    bw.write(defList.get(i));
+                    if (i + 1 < defList.size())
+                        bw.write("| ");
+                }
+                bw.write("\n");
+            }
+        } catch (IOException ex) {
+            System.out.println("\n\t\t\t*ERROR Caught while writing file*");
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.close();
+                }
+            } catch (IOException ex) {
+                System.out.println("\n\t\t\t*ERROR Caught while closing file*");
+                ex.printStackTrace();
+            }
+        }
+    }
+
 }
