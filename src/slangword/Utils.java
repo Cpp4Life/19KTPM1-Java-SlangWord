@@ -123,4 +123,11 @@ public class Utils {
         }
     }
 
+    // Util 3
+    public static void showHistoryLog() {
+        System.out.println("\n\t\tTime\t\t\tWord");
+        for (String item : historyLog.keySet()) {
+            System.out.println("\n\t\t" + item + "\t" + historyLog.get(item));
+        }
+    }
 }
