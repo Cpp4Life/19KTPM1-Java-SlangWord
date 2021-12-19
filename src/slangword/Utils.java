@@ -81,4 +81,46 @@ public class Utils {
         }
     }
 
+    // Util 1
+    public static void searchBySlangWord() {
+        System.out.print("\n\t\t\t> Type word to find: ");
+        String word = (CONSOL_SCANNER.nextLine()).toUpperCase();
+        if (!wordList.containsKey(word)) {
+            System.out.print("\n\t\t\t*No matching word was found*\n");
+        } else {
+            List<String> defList = wordList.get(word);
+            System.out.print("\n\t\t\t> Definition: ");
+            for (String item : defList) {
+                System.out.print("\n\t\t\t\t+ " + item);
+            }
+            System.out.println();
+        }
+        String date = FORMATTER.format(new Date());
+        historyLog.put(date, word);
+    }
+
+    // Util 2
+    public static void searchByDefinition() {
+        System.out.print("\n\t\t\t> Type to find Slang word: ");
+        String def = CONSOL_SCANNER.nextLine();
+        List<String> slangWordFoundList = new ArrayList<String>();
+        for (String item : wordList.keySet()) {
+            List<String> defList = wordList.get(item);
+            for (String each : defList) {
+                if (each.contains(def)) {
+                    slangWordFoundList.add(item + "\t->\t" + defList);
+                    break;
+                }
+            }
+        }
+        if (slangWordFoundList.isEmpty())
+            System.out.println("\n\t\t\t*No Slang Word found*");
+        else {
+            System.out.println("\n\t\t\tList of Slang Word containing \'" + def + "\'");
+            System.out.println("\n\t\t\tFound " + slangWordFoundList.size() + " results");
+            for (String word : slangWordFoundList)
+                System.out.print("\n\t\t\t+ " + word);
+        }
+    }
+
 }
