@@ -164,4 +164,110 @@ public class Utils {
         }
         updateDataToFile();
     }
+
+    // Util 5
+    public static void editSlangWord() {
+        System.out.print("\n\t\t\t> Type Slang Word to edit: ");
+        String word = (CONSOL_SCANNER.nextLine()).toUpperCase();
+        if (!wordList.containsKey(word)) {
+            System.out.println("\n\t\t\t*No matching word was found*");
+            return;
+        }
+
+        System.out.println("\n\t\t      > LIST DEFINITIONS <");
+        List<String> defList = wordList.get(word);
+        List<String> newDefList = new ArrayList<String>();
+
+        for (int i = 0; i < defList.size(); i++) {
+            System.out.println("\n\t\t\t" + (i + 1) + ". " + defList.get(i));
+        }
+
+        System.out.println();
+        System.out.println("\t\t--------------------------------------");
+        System.out.println("\t\t|     > EDIT DEFINITION OPTIONS<     |");
+        System.out.println("\t\t--------------------------------------");
+        System.out.println("\t\t|         1. Add definition.         |");
+        System.out.println("\t\t|         2. Update definition.      |");
+        System.out.println("\t\t|         3. Delete definition.      |");
+        System.out.println("\t\t--------------------------------------");
+        System.out.print("\n\t\t\t> @Choose: ");
+        String choice = CONSOL_SCANNER.nextLine();
+        switch (choice) {
+            case "1": {
+                System.out.print("\n\t\t\t> Type new definition: ");
+                String newDef = CONSOL_SCANNER.nextLine();
+                boolean duplicateDef = false;
+                for (String def : defList) {
+                    if (def.equals(newDef)) {
+                        duplicateDef = true;
+                        break;
+                    }
+                }
+                if (duplicateDef)
+                    System.out.println("\n\t\t*New definition must be different from old definition*");
+                else {
+                    newDefList.addAll(defList);
+                    newDefList.add(newDef);
+                    wordList.put(word, newDefList);
+                    System.out.println("\n\t\tSuccessfully added a new definition");
+                }
+                break;
+            }
+            case "2": {
+                System.out.print("\n\t\tWhat number of definition you want to update: ");
+                String number = CONSOL_SCANNER.nextLine();
+                int order = Integer.parseInt(number);
+                if (order > defList.size() || order <= 0) {
+                    System.out.println("\n\t\t\t*Invalid index*");
+                } else {
+                    System.out.print("\n\t\t\t> Type new definition: ");
+                    String newDef = CONSOL_SCANNER.nextLine();
+
+                    boolean duplicateDef = false;
+                    for (int i = 0; i < defList.size(); i++) {
+                        if ((defList.get(i)).equals(newDef) && i != (order - 1)) {
+                            duplicateDef = true;
+                            break;
+                        }
+                    }
+
+                    if ((defList.get(order - 1)).equals(newDef))
+                        duplicateDef = true;
+
+                    if (duplicateDef)
+                        System.out.println("\n\t\t*New definition must be different from the existing definitions*");
+                    else {
+                        newDefList.addAll(defList);
+                        newDefList.set(order - 1, newDef);
+                        wordList.put(word, newDefList);
+                        System.out.println("\n\t\t\tSuccessfully updated definition");
+                    }
+                }
+                break;
+            }
+            case "3": {
+                if (defList.size() == 1) {
+                    System.out.println("\n\t\t\t*Can-not delete this definition!*");
+                    System.out.println("\n\t\t\t*Slang Word must have at least one definition*");
+                    break;
+                }
+                System.out.print("\n\t\tWhat number of definition you want to update: ");
+                String number = CONSOL_SCANNER.nextLine();
+                int order = Integer.parseInt(number);
+                if (order > defList.size() || order <= 0) {
+                    System.out.println("\n\t\t\t*Invalid index*");
+                } else {
+                    newDefList.addAll(defList);
+                    newDefList.remove(order - 1);
+                    wordList.put(word, newDefList);
+                    System.out.println("\n\t\t\tSuccessfully deleted definition");
+                }
+                break;
+            }
+            default:
+                System.out.println("\n\t\t\t*Invalid Input*");
+                break;
+        }
+        updateDataToFile();
+    }
 }
