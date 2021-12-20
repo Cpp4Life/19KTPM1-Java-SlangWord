@@ -130,4 +130,38 @@ public class Utils {
             System.out.println("\n\t\t" + item + "\t" + historyLog.get(item));
         }
     }
+
+    // Util 4
+    public static void addSlangWord() {
+        System.out.print("\n\t\t\t> Type new slang word: ");
+        String newWord = (CONSOL_SCANNER.nextLine()).toUpperCase();
+        System.out.println("\n\t\t\t> Type new definitions");
+        System.out.println("\n\t\t\t(Press \'q\' or \'Q\' to stop writing)");
+        List<String> newDefList = new ArrayList<String>();
+        do {
+            System.out.print("\n\t\t\t");
+            String input = CONSOL_SCANNER.nextLine();
+            if (input.equals("q") || input.equals("Q"))
+                break;
+            if (input.length() != 0)
+                newDefList.add(input);
+        } while (true);
+        if (wordList.containsKey(newWord)) {
+            System.out.println("\n\t\t\t*Slang Word has already existed*");
+            System.out.print("\n\t\t\tDo you want to overwrite(Y/N): ");
+            String confirmOverwrite = CONSOL_SCANNER.nextLine();
+            if (confirmOverwrite.equals("y") || confirmOverwrite.equals("Y")) {
+                wordList.put(newWord, newDefList);
+            } else {
+                List<String> currentDefList = wordList.get(newWord);
+                newDefList.addAll(newDefList.size(), currentDefList);
+                newDefList = newDefList.stream().distinct().collect(Collectors.toList());
+                wordList.put(newWord, newDefList);
+            }
+        } else {
+            wordList.put(newWord, newDefList);
+            System.out.println("\n\t\t\tSuccessfully added a new Slang Word");
+        }
+        updateDataToFile();
+    }
 }
