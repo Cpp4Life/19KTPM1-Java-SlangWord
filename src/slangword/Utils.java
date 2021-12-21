@@ -293,4 +293,11 @@ public class Utils {
             System.out.print("\n\t\t\t*Please enter a word*");
         }
     }
+
+    // Util 7
+    public static void resetDictionary() {
+        wordList.clear();
+        loadDataFromFile(ORIGINAL_SW_FILE);
+        System.out.print("\n\t\t\tSuccessfully reset to default dictionary");
+    }
 }
