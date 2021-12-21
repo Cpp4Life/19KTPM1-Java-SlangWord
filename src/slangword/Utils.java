@@ -270,4 +270,27 @@ public class Utils {
         }
         updateDataToFile();
     }
+
+    // Util 6
+    public static void deleteSlangWord() {
+        System.out.print("\n\t\t\t> Type new slang word: ");
+        String word = (CONSOL_SCANNER.nextLine()).toUpperCase();
+        if (word.length() != 0) {
+            if (wordList.containsKey(word)) {
+                System.out.print("\n\t\t\tDo you want to delete(Y/N): ");
+                String confirm = CONSOL_SCANNER.nextLine();
+                if (confirm.equals("y") || confirm.equals("Y")) {
+                    wordList.remove(word);
+                    System.out.print("\n\t\t\tSuccessfully deleted word " + word);
+                    updateDataToFile();
+                } else {
+                    System.out.print("\n\t\t\t*Canceled process*");
+                }
+            } else {
+                System.out.print("\n\t\t\t*No matching word was found*");
+            }
+        } else {
+            System.out.print("\n\t\t\t*Please enter a word*");
+        }
+    }
 }
