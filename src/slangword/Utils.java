@@ -300,4 +300,26 @@ public class Utils {
         loadDataFromFile(ORIGINAL_SW_FILE);
         System.out.print("\n\t\t\tSuccessfully reset to default dictionary");
     }
+
+    // Util 8
+    private static String randomSlangWord() {
+        Set<String> keySet = wordList.keySet();
+        List<String> keyList = new ArrayList<>(keySet);
+
+        int size = keyList.size();
+        int randomIdx = new Random().nextInt(size);
+
+        String randomKey = keyList.get(randomIdx);
+        return randomKey;
+    }
+
+    public static void printRandomSlangWord() {
+        String keyWord = randomSlangWord();
+        List<String> defList = wordList.get(keyWord);
+        System.out.println("\n\t\t\t> A Random Slang Word: " + keyWord);
+        System.out.print("\n\t\t\t> Definition:");
+        for (String item : defList) {
+            System.out.println("\n\t\t\t\t+ " + item);
+        }
+    }
 }
