@@ -402,4 +402,19 @@ public class Utils {
             System.out.println("\n\t\t\tThe correct answer is \"" + ansKey + "\"");
         }
     }
+
+    // Util 11
+    public static void clearHistory() {
+        if (!historyLog.isEmpty()) {
+            historyLog.clear();
+            System.out.println("\n\t\t\tSuccessfully cleared history log");
+        } else {
+            System.out.println("\n\t\t\tNo history log to be cleared");
+        }
+    }
+
+    // Util 12
+    public static void quit() {
+        System.exit(0);
+    }
 }
