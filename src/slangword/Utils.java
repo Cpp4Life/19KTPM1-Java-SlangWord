@@ -322,4 +322,48 @@ public class Utils {
             System.out.println("\n\t\t\t\t+ " + item);
         }
     }
+
+    // Util 9
+    public static void quizFindDefinition() {
+        List<String> randomWords = new ArrayList<String>();
+        while (randomWords.size() != 4) {
+            String str = randomSlangWord();
+            if (!randomWords.contains(str))
+                randomWords.add(str);
+        }
+
+        String ansKey = randomWords.get(0); // Answer key
+        List<String> ansDefList = new ArrayList<String>(); // Contains 4 definitions and only one correct definition
+        for (String item : randomWords) {
+            List<String> defList = wordList.get(item);
+            String def = defList.get(new Random().nextInt(defList.size()));
+            ansDefList.add(def);
+        }
+
+        System.out.println("\n\t\t\t> Find the definition corresponding with \"" + ansKey + "\"");
+        Collections.shuffle(ansDefList);
+
+        HashMap<String, String> ansTable = new HashMap<String, String>();
+
+        for (int i = 0; i < ansDefList.size(); i++) {
+            int asciiVal = i + 65;
+            String option = String.valueOf((char) asciiVal);
+            ansTable.put(option, ansDefList.get(i));
+            System.out.println("\n\t\t\t" + option + ". " + ansDefList.get(i));
+        }
+
+        System.out.print("\n\t\t\t> Your answer is: ");
+        // User answer
+        String choice = (CONSOL_SCANNER.nextLine()).toUpperCase();
+        String defOfChoice = ansTable.get(choice);
+        // System answer
+        List<String> finalAns = wordList.get(ansKey);
+
+        if (finalAns.contains(defOfChoice)) {
+            System.out.println("\n\t\tCongratulations! You chose the correct answer.");
+        } else {
+            System.out.println("\n\t\t\t*Maybe better next time.*");
+            System.out.println("\n\t\t\tThe correct answer is \"" + finalAns.get(0) + "\"");
+        }
+    }
 }
