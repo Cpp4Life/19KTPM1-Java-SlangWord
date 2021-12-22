@@ -366,4 +366,40 @@ public class Utils {
             System.out.println("\n\t\t\tThe correct answer is \"" + finalAns.get(0) + "\"");
         }
     }
+
+    // Util 10
+    public static void quizFindSlangWord() {
+        List<String> randomWords = new ArrayList<String>();
+        while (randomWords.size() != 4) {
+            String str = randomSlangWord();
+            if (!randomWords.contains(str))
+                randomWords.add(str);
+        }
+
+        String ansKey = randomWords.get(0); // Answer key
+        List<String> ansKeyDef = wordList.get(ansKey);
+        System.out.println("\n\t\t\t> Find Slang Word corresponding with \"" + ansKeyDef.get(0) + "\"");
+        Collections.shuffle(randomWords);
+
+        HashMap<String, String> ansTable = new HashMap<String, String>();
+
+        for (int i = 0; i < randomWords.size(); i++) {
+            int asciiVal = i + 65;
+            String option = String.valueOf((char) asciiVal);
+            ansTable.put(option, randomWords.get(i));
+            System.out.println("\n\t\t\t" + option + ". " + randomWords.get(i));
+        }
+
+        System.out.print("\n\t\t\t> Your answer is: ");
+        // User answer
+        String choice = (CONSOL_SCANNER.nextLine()).toUpperCase();
+        String wordOfChoice = ansTable.get(choice);
+
+        if (wordOfChoice.equals(ansKey)) {
+            System.out.println("\n\t\tCongratulations! You chose the correct answer.");
+        } else {
+            System.out.println("\n\t\t\t*Maybe better next time.*");
+            System.out.println("\n\t\t\tThe correct answer is \"" + ansKey + "\"");
+        }
+    }
 }
