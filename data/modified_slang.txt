@@ -6844,7 +6844,7 @@ HAXOR`Hacker
 R&R`Rest and Relaxation
 WWOTW`Wicked Witch Of The West
 TDTF`Too Drunk to Function
-HCMUS`Khoa Hoc Tu Nhien| Dai Hoc Khoa Hoc Tu Nhien| University of Science
+HCMUS`Khoa Hoc Tu Nhien| University of Science
 HCMUT`Dai hoc Bach Khoa TPHCM
 HARF`Vomit| throw up
 QFE`Quoted For Emphasis

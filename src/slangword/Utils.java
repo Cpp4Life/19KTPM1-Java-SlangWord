@@ -152,6 +152,7 @@ public class Utils {
             String confirmOverwrite = CONSOL_SCANNER.nextLine();
             if (confirmOverwrite.equals("y") || confirmOverwrite.equals("Y")) {
                 wordList.put(newWord, newDefList);
+                System.out.println("\n\t\t\tSuccessfully overwritten a Slang Word");
             } else {
                 List<String> currentDefList = wordList.get(newWord);
                 newDefList.addAll(newDefList.size(), currentDefList);
@@ -294,11 +295,38 @@ public class Utils {
         }
     }
 
+    private static void resetDictFile() throws IOException {
+        FileInputStream in = new FileInputStream(ORIGINAL_SW_FILE);
+        FileOutputStream out = new FileOutputStream(MODIFIED_SW_FILE);
+
+        try {
+
+            int n;
+            while ((n = in.read()) != -1) {
+                out.write(n);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+        }
+    }
+
     // Util 7
     public static void resetDictionary() {
-        wordList.clear();
-        loadDataFromFile(ORIGINAL_SW_FILE);
-        System.out.print("\n\t\t\tSuccessfully reset to default dictionary");
+        try {
+            wordList.clear();
+            loadDataFromFile(ORIGINAL_SW_FILE);
+            resetDictFile();
+            System.out.print("\n\t\t\tSuccessfully reset to default dictionary");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Util 8
