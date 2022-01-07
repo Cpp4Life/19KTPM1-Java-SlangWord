@@ -2,6 +2,7 @@ package slangword;
 
 import java.util.*;
 import java.io.*;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 
@@ -296,23 +297,18 @@ public class Utils {
     }
 
     private static void resetDictFile() throws IOException {
-        FileInputStream in = new FileInputStream(ORIGINAL_SW_FILE);
-        FileOutputStream out = new FileOutputStream(MODIFIED_SW_FILE);
-
+        FileChannel src = new FileInputStream(ORIGINAL_SW_FILE).getChannel();
+        FileChannel dest = new FileOutputStream(MODIFIED_SW_FILE).getChannel();
         try {
-
-            int n;
-            while ((n = in.read()) != -1) {
-                out.write(n);
-            }
+            dest.transferFrom(src, 0, src.size());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (in != null) {
-                in.close();
+            if (src != null) {
+                src.close();
             }
-            if (out != null) {
-                out.close();
+            if (dest != null) {
+                dest.close();
             }
         }
     }
@@ -423,7 +419,7 @@ public class Utils {
         String choice = (CONSOL_SCANNER.nextLine()).toUpperCase();
         String wordOfChoice = ansTable.get(choice);
 
-        if (wordOfChoice.equals(ansKey)) {
+        if (ansKey.equals(wordOfChoice)) {
             System.out.println("\n\t\tCongratulations! You chose the correct answer.");
         } else {
             System.out.println("\n\t\t\t*Maybe better next time.*");
